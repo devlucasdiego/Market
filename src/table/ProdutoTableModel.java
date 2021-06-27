@@ -32,10 +32,10 @@ public class ProdutoTableModel extends AbstractTableModel {
             return produto.getCodigo_produto();
         }
         if (colunas == COL_DESCRICAO_PRODUTO) {
-            return produto.getCodigo_produto();
+            return produto.getDescricao_produto();
         }
         if (colunas == COL_PRECO_PRODUTO) {
-            return produto.getCodigo_produto();
+            return produto.getPreco_produto();
         }
         return "";
     }
