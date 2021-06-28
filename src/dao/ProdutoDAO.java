@@ -20,6 +20,7 @@ public class ProdutoDAO {
         conn = new ConnectionFactory().getConexao();
     }
 
+    // MÉTODOS: Inserir, Alterar, Excluir, Listar todos e Listar descrição.
     public void inserir(Produto produto) {
         String sql = "INSERT INTO produto (descricao_produto, preco_produto) VALUES(?,?)";
         try {

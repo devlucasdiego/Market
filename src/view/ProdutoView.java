@@ -190,18 +190,18 @@ public class ProdutoView extends javax.swing.JFrame {
         }
 
         tbProduto.setModel(new ProdutoTableModel(new ProdutoDAO().listarTodos()));
-        tfCodigo.setText("");
-        tfDescricao.setText("");
-        tfPreco.setText("");
-        tfPesquisarDescricao.setText("");
-        btExcluir.setEnabled(false);
+        tfCodigo.setText(""); //Limpar 
+        tfDescricao.setText(""); //Limpar
+        tfPreco.setText(""); //Limpar
+        tfPesquisarDescricao.setText(""); //Limpar
+        btExcluir.setEnabled(false); // Desabilita o botão de excluir após utiliza-lo, para evitar que seja usado sem ter selecionado algum produto antes.
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void tbProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutoMouseClicked
         tfCodigo.setText(tbProduto.getValueAt(tbProduto.getSelectedRow(), ProdutoTableModel.COL_CODIGO_PRODUTO).toString());
         tfDescricao.setText(tbProduto.getValueAt(tbProduto.getSelectedRow(), ProdutoTableModel.COL_DESCRICAO_PRODUTO).toString());
         tfPreco.setText(tbProduto.getValueAt(tbProduto.getSelectedRow(), ProdutoTableModel.COL_PRECO_PRODUTO).toString());
-        btExcluir.setEnabled(true);
+        btExcluir.setEnabled(true); // Após clicar em algum item da tabela, permite clicar no botão Excluir.
     }//GEN-LAST:event_tbProdutoMouseClicked
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
@@ -222,7 +222,7 @@ public class ProdutoView extends javax.swing.JFrame {
             tfDescricao.setText("");
             tfPreco.setText("");
             tfPesquisarDescricao.setText("");
-            btExcluir.setEnabled(false);
+            btExcluir.setEnabled(false); // Desabilita o botão de excluir após utiliza-lo, para evitar que seja usado sem ter selecionado algum produto antes.
         }
 
     }//GEN-LAST:event_btExcluirActionPerformed

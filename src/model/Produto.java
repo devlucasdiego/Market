@@ -2,6 +2,7 @@ package model;
 
 public class Produto {
 
+    //Recebe os atributos do banco de dados
     private int codigo_produto;
     private String descricao_produto;
     private double preco_produto;
