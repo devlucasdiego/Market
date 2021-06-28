@@ -1,6 +1,7 @@
 package view;
 
 import dao.ProdutoDAO;
+import javax.swing.JOptionPane;
 import model.Produto;
 import table.ProdutoTableModel;
 
@@ -13,6 +14,7 @@ public class ProdutoView extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         tbProduto.setModel(new ProdutoTableModel(new ProdutoDAO().listarTodos()));
+        btExcluir.setEnabled(false);
     }
 
     @SuppressWarnings("unchecked")
@@ -42,8 +44,7 @@ public class ProdutoView extends javax.swing.JFrame {
 
         jLabel3.setText("PREÇO:");
 
-        tfCodigo.setEditable(false);
-        tfCodigo.setBackground(new java.awt.Color(204, 255, 255));
+        tfCodigo.setBackground(new java.awt.Color(204, 204, 204));
         tfCodigo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tfCodigoActionPerformed(evt);
@@ -173,27 +174,34 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_tfCodigoActionPerformed
 
     private void btSalvarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btSalvarActionPerformed
-        if (tfCodigo.getText().equals("")) {
-            pro.setDescricao_produto(tfDescricao.getText());
-            pro.setPreco_produto(Double.parseDouble(tfPreco.getText()));
-            prd.inserir(pro);
+        if (tfDescricao.getText().equals("") || tfPreco.getText().equals("")) {
+            JOptionPane.showConfirmDialog(null, "Possui campos em branco.", "PRODUTO - Aviso", JOptionPane.WARNING_MESSAGE);
         } else {
-            pro.setDescricao_produto(tfDescricao.getText());
-            pro.setPreco_produto(Double.parseDouble(tfPreco.getText()));
-            pro.setCodigo_produto(Integer.parseInt(tfCodigo.getText()));
-            prd.alterar(pro);
+            if (tfCodigo.getText().equals("")) {
+                pro.setDescricao_produto(tfDescricao.getText());
+                pro.setPreco_produto(Double.parseDouble(tfPreco.getText()));
+                prd.inserir(pro);
+            } else {
+                pro.setDescricao_produto(tfDescricao.getText());
+                pro.setPreco_produto(Double.parseDouble(tfPreco.getText()));
+                pro.setCodigo_produto(Integer.parseInt(tfCodigo.getText()));
+                prd.alterar(pro);
+            }
         }
+
         tbProduto.setModel(new ProdutoTableModel(new ProdutoDAO().listarTodos()));
         tfCodigo.setText("");
         tfDescricao.setText("");
         tfPreco.setText("");
         tfPesquisarDescricao.setText("");
+        btExcluir.setEnabled(false);
     }//GEN-LAST:event_btSalvarActionPerformed
 
     private void tbProdutoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tbProdutoMouseClicked
         tfCodigo.setText(tbProduto.getValueAt(tbProduto.getSelectedRow(), ProdutoTableModel.COL_CODIGO_PRODUTO).toString());
         tfDescricao.setText(tbProduto.getValueAt(tbProduto.getSelectedRow(), ProdutoTableModel.COL_DESCRICAO_PRODUTO).toString());
         tfPreco.setText(tbProduto.getValueAt(tbProduto.getSelectedRow(), ProdutoTableModel.COL_PRECO_PRODUTO).toString());
+        btExcluir.setEnabled(true);
     }//GEN-LAST:event_tbProdutoMouseClicked
 
     private void btLimparActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btLimparActionPerformed
@@ -205,13 +213,18 @@ public class ProdutoView extends javax.swing.JFrame {
     }//GEN-LAST:event_btLimparActionPerformed
 
     private void btExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btExcluirActionPerformed
-        int codigo = Integer.parseInt(tfCodigo.getText());
-        prd.excluir(codigo);
-        tbProduto.setModel(new ProdutoTableModel(new ProdutoDAO().listarTodos()));
-        tfCodigo.setText("");
-        tfDescricao.setText("");
-        tfPreco.setText("");
-        tfPesquisarDescricao.setText("");
+        int escolha = JOptionPane.showConfirmDialog(null, "Deseja excluir?", "PRODUTO - Confirmar exclusão", JOptionPane.YES_NO_CANCEL_OPTION);
+        if (escolha == 0) {
+            int codigo = Integer.parseInt(tfCodigo.getText());
+            prd.excluir(codigo);
+            tbProduto.setModel(new ProdutoTableModel(new ProdutoDAO().listarTodos()));
+            tfCodigo.setText("");
+            tfDescricao.setText("");
+            tfPreco.setText("");
+            tfPesquisarDescricao.setText("");
+            btExcluir.setEnabled(false);
+        }
+
     }//GEN-LAST:event_btExcluirActionPerformed
 
     private void tfPesquisarDescricaoKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_tfPesquisarDescricaoKeyPressed
